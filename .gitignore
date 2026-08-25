@@ -1,0 +1,37 @@
+.env
+.env.local
+.env.*.local
+
+# Виртуальное окружение Python (если используете)
+venv/
+env/
+.venv/
+virtualenv/
+__pycache__/
+*.pyc
+
+# Логи и временные файлы
+*.log
+*.tmp
+*.temp
+
+# Системные файлы (macOS / Windows)
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Файлы IDE (PyCharm, VSCode, Sublime и др.)
+.idea/
+.vscode/
+*.iml
+.sublime-project
+.sublime-workspace
+
+# Папки с отчётами, кешем и т.п. (если есть)
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Если вы скачиваете файлы с Яндекс.Диска локально – можно игнорировать папку загрузок
+downloads/
+temp/
