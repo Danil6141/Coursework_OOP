@@ -30,7 +30,7 @@ load_dotenv()
 
 token_id = os.getenv('YANDEX_DISK_TOKEN')
 
-class ipify_API:
+class Ipify_API:
     def __init__(self):
         pass
 
@@ -45,25 +45,25 @@ class ipify_API:
         with open("user.json", "w", encoding="utf-8") as file:
             json.dump(data, file)
 
-class yandex_API:
+class Yandex_API:
 
     URL = "https://cloud-api.yandex.net/v1/disk/resources"
 
     def __init__(self, token):
         self.token = token
+        self.headers = {'Authorization': f'OAuth {self.token}'}
+
 
     def creating_folder(self):
         params = {'path': 'Ip_Detector'}
-        headers = {'Authorization': f'OAuth {self.token}'}
         response = requests.put(self.URL, params=params,
-                                headers=headers)
+                                headers=self.headers)
 
     def uploading_file_to_disk(self):
         params = {'path': 'Ip_Detector/user.json'}
-        headers = {'Authorization': f'OAuth {self.token}'}
         response = requests.get('https://cloud-api.yandex.net/v1/disk/resources/upload',
                                 params = params,
-                                headers = headers)
+                                headers = self.headers)
 
         if response.status_code == 409:
             print('Папка уже создана')
@@ -73,13 +73,14 @@ class yandex_API:
             requests.put(upload_link, files={'file': file})
         if response.status_code == 200:
             print('Файл загружен на Яндекс Диск')
+        os.remove('user.json')
 
 
 
 if __name__ == '__main__':
-    ipify_API = ipify_API()
+    ipify_API = Ipify_API()
     ipify_API.ipinfo_request()
-    yandex_API = yandex_API(token_id)
+    yandex_API = Yandex_API(token_id)
     yandex_API.creating_folder()
     yandex_API.uploading_file_to_disk()
 
